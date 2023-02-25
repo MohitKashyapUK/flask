@@ -4,8 +4,16 @@ from pytube import YouTube
 
 app = Flask(__name__)
 
-@app.route('/<string:n>/<string:g>')
-def index(n,g):
+@app.route("/getstreams/<string:n>")
+def streams(n):
+  yt = YouTube(f"http://youtube.com/watch?v={n}")
+  streams = yt.streams.filter(file_extension="mp4").order_by("resolution")
+  for i in streams:
+    x = str(i).split()[3][5:-1]
+    return x
+
+@app.route('/getvideo/<string:n>/<string:g>')
+def video(n,g):
     yt = YouTube(f"http://youtube.com/watch?v={n}")
     video = streams = yt.streams.get_by_resolution(g)
     download = video.download()
