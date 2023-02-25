@@ -1,5 +1,6 @@
 from flask import Flask, jsonify
 import os
+import requests
 
 app = Flask(__name__)
 
@@ -10,7 +11,8 @@ def index():
 
 @app.route('/about')
 def about():
-    return 'This is a about page, for sample!'
+    name = requests.get('https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png')
+    return name
 
 if __name__ == '__main__':
     app.run(debug=True, port=os.getenv("PORT", default=5000))
