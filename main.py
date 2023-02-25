@@ -1,5 +1,6 @@
 from flask import Flask, send_file
 import os
+import json
 from pytube import YouTube
 
 app = Flask(__name__)
@@ -8,12 +9,12 @@ app = Flask(__name__)
 def streams(n):
   yt = YouTube(f"http://youtube.com/watch?v={n}")
   streams = yt.streams.filter(file_extension="mp4").order_by("resolution")
-  x = {}
-  g = 1
+  x = ""
   for i in streams:
     value = str(i).split()[3][5:]
-    x[g] = value
-    g + 1
+    x += value
+    x = x.split('"')
+  x = json.dumps(x)
   return x
 
 @app.route('/video/<string:n>/<string:g>')
