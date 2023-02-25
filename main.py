@@ -5,7 +5,7 @@ from pytube import YouTube
 
 app = Flask(__name__)
 
-@app.route("/streams/<string:n>")
+@app.route("/ggstreams/<string:n>")
 def streams(n):
   yt = YouTube(f"http://youtube.com/watch?v={n}")
   streams = yt.streams.filter(file_extension="mp4").order_by("resolution")
@@ -13,7 +13,7 @@ def streams(n):
   for i in streams:
     value = str(i).split()[3][5:]
     x += value
-    y = x.split('"')
+  y = x.split('"')
   return y
 
 @app.route('/video/<string:n>/<string:g>')
