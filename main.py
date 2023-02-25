@@ -10,8 +10,8 @@ def streams(n):
   streams = yt.streams.filter(file_extension="mp4").order_by("resolution")
   x = ""
   for i in streams:
-    x += str(i).split()[3][5:-1]
-    #x.append(c)
+    c = str(i).split()[3][5:-1]
+    x.append(str(c))
   #x = list(dict.fromkeys(mylist))
   return x
 
