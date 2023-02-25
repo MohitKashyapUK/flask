@@ -13,9 +13,8 @@ def streams(n):
   for i in streams:
     value = str(i).split()[3][5:]
     x += value
-    x = x.split('"')
-  x = json.dumps(x)
-  return x
+    y = x.split('"')
+  return y
 
 @app.route('/video/<string:n>/<string:g>')
 def video(n,g):
