@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 @app.route('/<string:n>')
 def index(n):
-    yt = YouTube(n)
+    yt = YouTube(f"http://youtube.com/watch?v={n}")
     video = streams = yt.streams.get_highest_resolution()
     return video.download()
 
