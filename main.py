@@ -12,7 +12,6 @@ def streams(n):
   for i in streams:
     c = str(i).split()[3][5:-1]
     x.append(str(c))
-  #x = list(dict.fromkeys(mylist))
   return x
 
 @app.route('/video/<string:n>/<string:g>')
