@@ -1,16 +1,14 @@
-from flask import Flask, jsonify
+from flask import Flask, send_file
 import os
+from pytube import YouTube
 
 app = Flask(__name__)
 
-
-@app.route('/')
-def index():
-    return jsonify({"Choo Choo": "Welcome to your Flask app 🚅"})
-
-@app.route('/about')
-def about():
-    return 'https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png'
+@app.route('/<string:n>')
+def index(n):
+    yt = YouTube(n)
+    video = streams = yt.streams.get_highest_resolution()
+    return send_file(video.download())
 
 if __name__ == '__main__':
     app.run(debug=True, port=os.getenv("PORT", default=5000))
