@@ -9,10 +9,13 @@ def streams(n):
   yt = YouTube(f"http://youtube.com/watch?v={n}")
   streams = yt.streams.filter(file_extension="mp4").order_by("resolution")
   x = []
-  for i in streams:
-    c = str(i).split()[3][5:-1]
-    x.append(str(c))
-  return x
+  try:
+    for i in streams:
+      c = str(i).split()[3][5:-1]
+      x.append(str(c))
+    return x
+  except:
+    return "Error!"
 
 @app.route('/video/<string:n>/<string:g>')
 def video(n,g):
