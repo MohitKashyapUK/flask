@@ -11,7 +11,8 @@ def streams(n):
   x = ""
   try:
     for i in streams:
-      x += f"{str(i).split()[3][5:-1]} "
+      c = str(i).split()[3][5:-1]
+      x += f"{c} "
       x = x.split()
     return x
   except:
