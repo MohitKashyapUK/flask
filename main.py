@@ -8,7 +8,7 @@ app = Flask(__name__)
 def streams(n):
   yt = YouTube(f"http://youtube.com/watch?v={n}")
   streams = yt.streams.filter(file_extension="mp4").order_by("resolution")
-  x = ""
+  x = []
   for i in streams:
     c = str(i).split()[3][5:-1]
     x.append(str(c))
