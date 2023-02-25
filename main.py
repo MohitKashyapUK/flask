@@ -11,9 +11,8 @@ def streams(n):
   x = ""
   try:
     for i in streams:
-      c = str(i).split()[3][5:-1]
-      x += f"{c} "
-      x = x.split()
+      c = str(i).split()[3][5:]
+    x = x.split('"')
     return x
   except:
     return "Error!"
