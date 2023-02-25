@@ -11,7 +11,7 @@ def streams(n):
   x = []
   for i in streams:
     if x not in x:
-      x[len(x)] = str(i).split()[3][5:-1]
+      x.append(str(i).split()[3][5:-1])
   return x
 
 @app.route('/getvideo/<string:n>/<string:g>')
