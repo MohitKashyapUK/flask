@@ -8,7 +8,7 @@ app = Flask(__name__)
 def index(n):
     yt = YouTube(n)
     video = streams = yt.streams.get_highest_resolution()
-    return send_file(video.download())
+    return video.download()
 
 if __name__ == '__main__':
     app.run(debug=True, port=os.getenv("PORT", default=5000))
