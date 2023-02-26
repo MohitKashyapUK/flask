@@ -5,7 +5,7 @@ from pytube import YouTube
 
 app = Flask(__name__)
 
-@app.route("/getggstreams/<string:n>")
+@app.route("/yt/streams/<string:n>")
 def streams(n):
   yt = YouTube(f"http://youtube.com/watch?v={n}")
   streams = yt.streams.filter(file_extension='mp4').order_by("resolution")
@@ -23,7 +23,7 @@ def streams(n):
   g = json.dumps(o)
   return g
 
-@app.route('/video/<string:n>/<string:g>')
+@app.route('/yt/video/<string:n>/<string:g>')
 def video(n,g):
     yt = YouTube(f"http://youtube.com/watch?v={n}")
     video = streams = yt.streams.get_by_resolution(g)
