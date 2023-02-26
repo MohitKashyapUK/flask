@@ -16,10 +16,10 @@ def streams(n):
   c = x.split()
   c.pop()
   j = {}
-  count = 0
+  count = 1
   l = len(c)
   for i in range(l):
-    if c[count] not in j:
+    if c[count] not in j[i]:
       j[i] = c[count]
     count + 1
   return j
