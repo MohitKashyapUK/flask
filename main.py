@@ -8,21 +8,22 @@ app = Flask(__name__)
 @app.route("/getggstreams/<string:n>")
 def streams(n):
   yt = YouTube(f"http://youtube.com/watch?v={n}")
-  streams = yt.streams.filter(adaptive=True).order_by("resolution")
+  streams = yt.streams.filter(file_extension='mp4').order_by("resolution")
   x = ""
   for i in streams:
     x += str(i).split()[3][5:-1]
     x += " "
   c = x.split()
   c.pop()
-  j = json.dumps(c)
-  '''count = 1
+  j = []
+  count = 0
   l = len(c)
   for i in range(l):
-    if c[count] not in j[i]:
-      j[i] = c[count]
-    count + 1'''
-  return j
+    if c[count] not in j:
+      j.append(c[count])
+    count + 1
+  g = json.dumps(j)
+  return g
 
 @app.route('/video/<string:n>/<string:g>')
 def video(n,g):
