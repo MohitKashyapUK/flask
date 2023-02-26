@@ -5,7 +5,7 @@ from pytube import YouTube
 
 app = Flask(__name__)
 
-@app.route("/getstreams/<string:n>")
+@app.route("/getggstreams/<string:n>")
 def streams(n):
   yt = YouTube(f"http://youtube.com/watch?v={n}")
   streams = yt.streams.filter(adaptive=True).order_by("resolution")
