@@ -10,17 +10,18 @@ def streams(n):
   yt = YouTube(f"http://youtube.com/watch?v={n}")
   streams = yt.streams.filter(adaptive=True).order_by("resolution")
   x = ""
-  count = 0
   for i in streams:
     x += str(i).split()[3][5:-1]
     x += " "
   c = x.split()
   c.pop()
   j = []
+  count = 0
+  l = len(c)
   while True:
     if c[count] not in j:
       j.append(c[count])
-    if count === len(c):
+    if count === l:
       break
     count + 1
   return j
