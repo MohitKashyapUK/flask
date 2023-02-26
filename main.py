@@ -8,7 +8,7 @@ app = Flask(__name__)
 @app.route("/ggstreams/<string:n>")
 def streams(n):
   yt = YouTube(f"http://youtube.com/watch?v={n}")
-  streams = yt.streams.filter(file_extension="mp4",adaptive=True).order_by("resolution")
+  streams = yt.streams.filter(adaptive=True, file_extension="mp4").order_by("resolution")
   x = ""
   for i in streams:
     x += str(i).split()[3][5:-1]
