@@ -30,10 +30,8 @@ def size(n):
     if i not in o:
       o.append(i)
   for i in o:
-    s.append(i)
-    #k = yt.streams.get_by_resolution(i).filesize_mb
-    #s[i] = f"{k}mb"
-
+    k = yt.streams.get_by_resolution(str(i)).filesize_mb
+    s[i] = f"{k}mb"
   return json.dumps(s)
 
 @app.route("/yt/streams/<string:n>/")
