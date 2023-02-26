@@ -17,6 +17,7 @@ def yt():
 @app.route("/yt/video/size/<string:n>/")
 def size(n):
   yt = YouTube(f"http://youtube.com/watch?v={n}")
+  streams = yt.streams.filter(file_extension='mp4').order_by("resolution")
   x = ""
   for i in streams:
     x += str(i).split()[3][5:-1]
