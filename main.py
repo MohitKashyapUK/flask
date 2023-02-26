@@ -25,7 +25,7 @@ def size(n):
   c = x.split()
   c.pop()
   o = []
-  s = []
+  s = {}
   for i in c:
     if i not in o:
       o.append(i)
