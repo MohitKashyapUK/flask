@@ -15,14 +15,14 @@ def streams(n):
     x += " "
   c = x.split()
   c.pop()
-  j = {}
+  '''j = {}
   count = 1
   l = len(c)
   for i in range(l):
     if c[count] not in j[i]:
       j[i] = c[count]
-    count + 1
-  return j
+    count + 1'''
+  return c
 
 @app.route('/video/<string:n>/<string:g>')
 def video(n,g):
