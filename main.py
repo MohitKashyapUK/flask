@@ -30,11 +30,13 @@ def size(n):
     if i not in o:
       o.append(i)
   for i in o:
-    k = yt.streams.get_by_resolution(str(i)).filesize_mb
+    p = i
+    print(p)
+    k = yt.streams.get_by_resolution(p).filesize_mb
     s[i] = f"{k}mb"
   return json.dumps(s)
 
-@app.route("/yt/streams/<string:n>/")
+@app.route("/yt/resolution/<string:n>/")
 def streams(n):
   yt = YouTube(f"http://youtube.com/watch?v={n}")
   streams = yt.streams.filter(file_extension='mp4').order_by("resolution")
