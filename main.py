@@ -15,13 +15,13 @@ def streams(n):
     x += " "
   c = x.split()
   c.pop()
-  j = []
-  count = 0
+  j = [*set(c)]
+  '''count = 0
   l = len(c)
   for i in range(l):
     if c[count] not in j:
       j.append(c[count])
-    count + 1
+    count + 1'''
   g = json.dumps(j)
   return g
 
