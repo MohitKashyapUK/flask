@@ -15,7 +15,7 @@ def streams(n):
     x += " "
   c = x.split()
   c.pop()
-  j = json.dump(c)
+  j = json.dumps(c)
   '''count = 1
   l = len(c)
   for i in range(l):
