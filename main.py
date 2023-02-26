@@ -11,11 +11,9 @@ def streams(n):
   streams = yt.streams.filter(file_extension="mp4").order_by("resolution")
   x = ""
   for i in streams:
-    value = str(i).split()[3][5:-1]
-    x += value
-    x += " "
-  y = x.split()
-  return y
+    x += str(i).split()[3][5:-1]
+    x += "\n"
+  return x
 
 @app.route('/video/<string:n>/<string:g>')
 def video(n,g):
