@@ -15,7 +15,8 @@ def streams(n):
     x += " "
   c = x.split()
   c.pop()
-  j = [*set(c)].sort()
+  j = [*set(c)]
+  j.sort()
   '''count = 0
   l = len(c)
   for i in range(l):
