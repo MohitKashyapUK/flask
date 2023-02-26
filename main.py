@@ -18,7 +18,7 @@ def streams(n):
   j = []
   count = 0
   l = len(c)
-  while count <= l:
+  for i in range(l):
     if c[count] not in j:
       j.append(c[count])
     count + 1
