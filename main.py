@@ -34,7 +34,7 @@ def size(n):
       k = yt.streams.get_by_resolution(i).filesize_mb
       s += f"video resolution: {i}, Video size: {k}"
     except:
-      s += "Failed to get video size"
+      s += f"Video resolution: {i}, Video size: failed"
     s += "<br />"
   return json.dumps(s)
 
