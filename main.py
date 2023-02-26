@@ -18,9 +18,8 @@ def streams(n):
   o = []
   count = 0
   for i in c:
-    if len(o) != 0:
-      if i in o:
-        o.append(i)
+    if i not in o:
+      o.append(i)
   g = json.dumps(o)
   return g
 
