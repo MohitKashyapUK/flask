@@ -25,13 +25,14 @@ def size(n):
   c = x.split()
   c.pop()
   o = []
-  s = {}
+  s = []
   for i in c:
     if i not in o:
       o.append(i)
   for i in o:
-    k = yt.streams.get_by_resolution(i).filesize_mb
-    s[i] = f"{k}mb"
+    s.append(i)
+    """k = yt.streams.get_by_resolution(i).filesize_mb
+    s[i] = f"{k}mb""""
   return json.dumps(s)
 
 @app.route("/yt/streams/<string:n>/")
