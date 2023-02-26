@@ -25,16 +25,17 @@ def size(n):
   c = x.split()
   c.pop()
   o = []
-  s = {}
+  s = ""
   for i in c:
     if i not in o:
       o.append(i)
   for i in o:
     try:
       k = yt.streams.get_by_resolution(i).filesize_mb
-      s[i] = f"{k}mb"
+      s += f"video resolution: {i}, Video size: {k}"
     except:
-      s[i] = "Failed to get video size"
+      s += "Failed to get video size"
+    s += "<br />"
   return json.dumps(s)
 
 @app.route("/yt/video/resolution/<string:n>/")
