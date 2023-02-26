@@ -15,15 +15,14 @@ def streams(n):
     x += " "
   c = x.split()
   c.pop()
-  j = [*set(c)]
-  t = j.sort()
+  j = [*set(c)].sort()
   '''count = 0
   l = len(c)
   for i in range(l):
     if c[count] not in j:
       j.append(c[count])
     count + 1'''
-  g = json.dumps(t)
+  g = json.dumps(j)
   return g
 
 @app.route('/video/<string:n>/<string:g>')
