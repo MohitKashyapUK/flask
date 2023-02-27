@@ -23,7 +23,7 @@ def ytvideosize(n):
     itag = i.itag
     res = i.resolution
     size = i.filesize_mb
-    have_audio = i.include_audio_track
+    have_audio = i.includes_audio_track
     final += f"Video res: {res}, itag: {itag}, Video size: {size}mb, Have audio: {have_audio}<br />"
   return json.dumps(final)[1:-1]
 
