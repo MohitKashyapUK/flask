@@ -18,7 +18,7 @@ def yt():
 def ytvideosize(n):
   yt = YouTube(f"http://youtube.com/watch?v={n}")
   streams = yt.streams.filter(file_extension='mp4').order_by("resolution")
-  final = "<h1 style='font-size: 50%;'>"
+  final = "<h1 style='font-size: 80vw;'>"
   for i in streams:
     itag = i.itag
     res = i.resolution
@@ -32,7 +32,7 @@ def ytvideosize(n):
 def ytvideodownload(videoid,itag):
     yt = YouTube(f"http://youtube.com/watch?v={videoid}")
     video = yt.streams.get_by_itag(itag)
-    url = json.dumps(f"<a style='font-size:50%;' href='{video.url}' />")
+    url = json.dumps(f"<a style='font-size: 80vw;' href='{video.url}' />")
     return url
 
 if __name__ == '__main__':
