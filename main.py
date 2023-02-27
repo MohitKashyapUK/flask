@@ -24,14 +24,14 @@ def ytvideosize(n):
     res = i.resolution
     size = i.filesize_mb
     have_audio = i.includes_audio_track
-    final += f"<h1 style='font-size: 90vw;'>Video res: {res}, itag: {itag}, Video size: {size}mb, Have audio: {have_audio}</h1><br />"
+    final += f"<h1 style='width: 90vw;'>Video res: {res}, itag: {itag}, Video size: {size}mb, Have audio: {have_audio}</h1><br />"
   return json.dumps(final)[1:-1]
 
 @app.route('/yt/video/download/<string:videoid>/<int:itag>/')
 def ytvideodownload(videoid,itag):
     yt = YouTube(f"http://youtube.com/watch?v={videoid}")
     video = yt.streams.get_by_itag(itag)
-    url = json.dumps(f"<a style='font-size: 80vw;' href='{video.url}' />")
+    url = json.dumps(f"<a style='width: 90vw;' href='{video.url}' />")
     return url
 
 if __name__ == '__main__':
