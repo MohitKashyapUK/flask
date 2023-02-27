@@ -18,13 +18,14 @@ def yt():
 def ytvideosize(n):
   yt = YouTube(f"http://youtube.com/watch?v={n}")
   streams = yt.streams.filter(file_extension='mp4').order_by("resolution")
-  final = ""
+  final = "<div style='width: 95vw;'><h1>"
   for i in streams:
     itag = i.itag
     res = i.resolution
     size = i.filesize_mb
     have_audio = i.includes_audio_track
-    final += f"<h1 style='width: 90vw;'>Video res: {res}, itag: {itag}, Video size: {size}mb, Have audio: {have_audio}</h1><br />"
+    final += f"Video res: {res}, itag: {itag}, Video size: {size}mb, Have audio: {have_audio}<br />"
+  final += "</h1></div>"
   return json.dumps(final)[1:-1]
 
 @app.route('/yt/video/download/<string:videoid>/<int:itag>/')
