@@ -15,31 +15,20 @@ def yt():
   return json.dumps(o)
 
 @app.route("/yt/video/size/<string:n>/")
-def size(n):
+def ytvideosize(n):
   yt = YouTube(f"http://youtube.com/watch?v={n}")
   streams = yt.streams.filter(file_extension='mp4').order_by("resolution")
-  x = ""
+  final = ""
   for i in streams:
-    x += str(i).split()[3][5:-1]
-    x += " "
-  c = x.split()
-  c.pop()
-  o = []
-  s = ""
-  for i in c:
-    if i not in o:
-      o.append(i)
-  for i in o:
-    try:
-      k = yt.streams.get_by_resolution(i).filesize_mb
-      s += f"video resolution: {i}, Video size: {k}"
-    except:
-      s += f"Video resolution: {i}, Video size: failed"
-    s += "<br />"
-  return json.dumps(s)
+    stri = str(i).split()
+    itag = stri[1][6:-1]
+    res = stri[3][5:-1]
+    size = i.filesize_mb
+    final += f"Video res: {res}, itag: {itag}, Video size: {size}mb <br />"
+  return json.dumps(final)
 
 @app.route("/yt/video/resolution/<string:n>/")
-def streams(n):
+def ytvideoresolution(n):
   yt = YouTube(f"http://youtube.com/watch?v={n}")
   streams = yt.streams.filter(file_extension='mp4').order_by("resolution")
   x = ""
@@ -55,10 +44,10 @@ def streams(n):
   g = json.dumps(o)
   return g
 
-@app.route('/yt/video/download/<string:n>/<string:g>/')
-def video(n,g):
-    yt = YouTube(f"http://youtube.com/watch?v={n}")
-    video = streams = yt.streams.get_by_resolution(g)
+@app.route('/yt/video/download/<string:videoid>/<int:itag>/')
+def ytvideodownload(videoid,itag):
+    yt = YouTube(f"http://youtube.com/watch?v={videoid}")
+    video = streams = yt.streams.get_by_itag(itag)
     download = video.download()
     return send_file(download)
 
