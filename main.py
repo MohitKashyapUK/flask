@@ -9,7 +9,7 @@ app = Flask(__name__)
 def index():
   return "<b style='font-size: 50px;'>This is YouTube Video Download Bot<br />goto /yt</b>"
 
-@app.route('headers/')
+@app.route('/headers/')
 def headers():
   return request.headers
 
