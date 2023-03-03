@@ -1,4 +1,4 @@
-from flask import Flask, send_file
+from flask import Flask, send_file, request
 import os
 import json
 from pytube import YouTube
@@ -8,6 +8,10 @@ app = Flask(__name__)
 @app.route("/")
 def index():
   return "<b style='font-size: 50px;'>This is YouTube Video Download Bot<br />goto /yt</b>"
+
+@app.route('headers/')
+def headers():
+  return request.headers
 
 @app.route("/yt/")
 def yt():
