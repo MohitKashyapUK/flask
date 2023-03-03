@@ -11,7 +11,7 @@ def index():
 
 @app.route('/headers/')
 def headers():
-  return json.dumps(request.headers)
+  print( request.headers )
 
 @app.route("/yt/")
 def yt():
