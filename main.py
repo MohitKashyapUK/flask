@@ -3,7 +3,7 @@ import  requests
 import os
 app = Flask(__name__)
 
-token = 5673736349:AAGVhV7rr1ArFclW8_9iHjTGJu2rvt0NeSc
+token = "5673736349:AAGVhV7rr1ArFclW8_9iHjTGJu2rvt0NeSc"
 url = f"https://api.telegram.org/bot{token}/sendMessage"
 
 @app.route("/", methods = ["GET", "POST"])
