@@ -12,15 +12,14 @@ def index():
   message = request_args["result"][0]["message"]["text"]
   chat_id = request_args["result"][0]["message"]["chat"]["id"]
   message_id = request_args["result"][0]["message"]["message_id"]
-  match message:
-    case "/start":
-      requests.post(url,data={"chat_id": chat_id, "text": "Start!"})
-      break
-    case "hello":
-      requests.post(url,data={"chat_id": chat_id, "text": "Hello!"})
-      break
-    case _:
-      requests.post(url,data={"chat_id": chat_id, "text": "Default!"})
+  if message  === "/start":
+    requests.post(url,data={"chat_id": chat_id, "text": "Start!"})
+    break
+  elif message === "hello":
+    requests.post(url,data={"chat_id": chat_id, "text": "Hello!"})
+    break
+  else:
+    requests.post(url,data={"chat_id": chat_id, "text": "Default!"})
 
 if __name__ == "__main__":
   app.run(debug=True)
