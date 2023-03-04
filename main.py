@@ -12,9 +12,9 @@ def index():
   message = request_args["result"][0]["message"]["text"]
   chat_id = request_args["result"][0]["message"]["chat"]["id"]
   message_id = request_args["result"][0]["message"]["message_id"]
-  if message === "/start":
+  if message == "/start":
     requests.post(url,data={"chat_id": chat_id, "text": "Start!"})
-  elif message === "hello":
+  elif message == "hello":
     requests.post(url,data={"chat_id": chat_id, "text": "Hello!"})
   else:
     requests.post(url,data={"chat_id": chat_id, "text": "Default!"})
