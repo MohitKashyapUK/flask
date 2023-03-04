@@ -9,16 +9,11 @@ url = f"https://api.telegram.org/bot{token}/sendMessage"
 
 @app.route("/webhook", methods = ["GET", "POST"])
 def index():
-  request_args = request.args
+  request_args = request.get_json()
   message = request_args["result"][0]["message"]["text"]
   chat_id = request_args["result"][0]["message"]["chat"]["id"]
   message_id = request_args["result"][0]["message"]["message_id"]
-  if message == "/start":
-    requests.post(url,data={"chat_id": chat_id, "text": "Start!"})
-  elif message == "hello":
-    requests.post(url,data={"chat_id": chat_id, "text": "Hello!"})
-  else:
-    requests.post(url,data={"chat_id": chat_id, "text": "Default!"})
+  requests.post(url,data={"chat_id": chat_id, "text": f"message: {message},\nchat_id: {chat_id},\nmessage_id: {message_id}"})
   return json.dumps({"ok":True})
 
 if __name__ == "__main__":
