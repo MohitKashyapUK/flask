@@ -14,10 +14,8 @@ def index():
   message_id = request_args["result"][0]["message"]["message_id"]
   if message  === "/start":
     requests.post(url,data={"chat_id": chat_id, "text": "Start!"})
-    break
   elif message === "hello":
     requests.post(url,data={"chat_id": chat_id, "text": "Hello!"})
-    break
   else:
     requests.post(url,data={"chat_id": chat_id, "text": "Default!"})
 
