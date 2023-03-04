@@ -4,7 +4,7 @@ import os
 import json
 app = Flask(__name__)
 
-token = os.getenviron("TOKEN")
+token = os.environ("TOKEN")
 url = f"https://api.telegram.org/bot{token}/sendMessage"
 
 @app.route("/webhook", methods = ["GET", "POST"])
