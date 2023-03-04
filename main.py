@@ -1,9 +1,10 @@
 from flask import Flask, request
-import  requests
+import requests
 import os
+import json
 app = Flask(__name__)
 
-token = "5673736349:AAGVhV7rr1ArFclW8_9iHjTGJu2rvt0NeSc"
+token = os.getenviron("TOKEN")
 url = f"https://api.telegram.org/bot{token}/sendMessage"
 
 @app.route("/webhook", methods = ["GET", "POST"])
@@ -18,6 +19,7 @@ def index():
     requests.post(url,data={"chat_id": chat_id, "text": "Hello!"})
   else:
     requests.post(url,data={"chat_id": chat_id, "text": "Default!"})
+  return json.dumps({"ok":True})
 
 if __name__ == "__main__":
   app.run(debug=True)
