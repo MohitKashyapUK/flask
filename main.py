@@ -6,7 +6,7 @@ app = Flask(__name__)
 token = os.environ.get("TOKEN")
 url = f"https://api.telegram.org/bot{token}/sendMessage"
 
-@app.route("/",methods["GET","POST"])
+@app.route("/",methods=["GET","POST"])
 def index():
   request_args = request.args
   message = request_args["result"][0]["message"]["text"]
