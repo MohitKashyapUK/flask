@@ -21,7 +21,7 @@ def webhook():
   if message == '/start':
     requests.post(url,data={"chat_id": chat_id, 'text': text_list[getrandomtext()]})
   else:"""
-  requests.post(url,data={"chat_id": chat_id, 'text': 'Hey!'})
+  #requests.post(url,data={"chat_id": chat_id, 'text': 'Hey!'})
   return {'ok':True}
 if __name__ == "__main__":
   app.run(debug=True)
