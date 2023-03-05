@@ -14,7 +14,7 @@ def index():
     "argsdata":request.args,
     "data":type(request.data),
     "datadata":request.data,
-    "json":type(request.json)
+    "json":type(request.json),
     "jsondata":request.json,
     "get_json"type(request.get_json()),
     "get_jsondata":request.get_json()
