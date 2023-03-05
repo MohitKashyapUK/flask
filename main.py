@@ -10,10 +10,14 @@ app = Flask(__name__)
 @app.route("/webhook", methods = ["GET", "POST"])
 def index():
   request_args = {
-    type(request.args) :request.args,
-    type(request.data) :request.data,
-    type(request.json) :request.json,
-    type(request.get_json()) :request.get_json()
+    "args":type(request.args),
+    "argsdata":request.args,
+    "data":type(request.data),
+    "datadata":request.data,
+    "json":type(request.json)
+    "jsondata":request.json,
+    "get_json"type(request.get_json()),
+    "get_jsondata":request.get_json()
   }
   """message = request_args["result"][0]["message"]["text"]
   chat_id = request_args["result"][0]["message"]["chat"]["id"]
