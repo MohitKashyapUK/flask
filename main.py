@@ -16,7 +16,7 @@ def index():
     "datadata":request.data,
     "json":type(request.json),
     "jsondata":request.json,
-    "get_json"type(request.get_json()),
+    "get_json":type(request.get_json()),
     "get_jsondata":request.get_json()
   }
   """message = request_args["result"][0]["message"]["text"]
