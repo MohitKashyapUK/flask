@@ -1,10 +1,14 @@
-FROM ubuntu:18.04
+FROM ubuntu:20.04
+RUN apt-get update && apt-get upgrade -y
+RUN apt-get install -y software-properties-common curl
+RUN add-apt-repository -y ppa:ubuntu-toolchain-r/test && \
+    apt-get update && \
+    apt-get install -y gcc-9 g++-9 libssl-dev zlib1g-dev && \
+    rm -rf /var/lib/apt/lists/*
+RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
+RUN apt-get install -y nodejs
+RUN npm install -g npm@7
+RUN npm install -g pm2
+RUN npm install -g telegram-tg
 
-RUN apt-get update && \
-    apt-get install -y python3 python3-pip git && \
-    git clone https://github.com/telegramdesktop/tdesktop.git && \
-    cd tdesktop && \
-    git checkout v2.7.0 && \
-    pip3 install pyrogram tgcrypto
-
-EXPOSE 80/tcp
+CMD ["bash"]
