@@ -4,10 +4,10 @@ import os
 import json
 app = Flask(__name__)
 
-token = os.environ["TOKEN"]
+'''token = os.environ["TOKEN"]
 url = f"https://api.telegram.org/bot{token}/sendMessage"
 #base_url = f'{request.host_url}/bot{token}/sendMessage'
-host_urls = request.host_url
+host_urls = request.host_url'''
 
 @app.route("/webhook", methods = ["GET", "POST"])
 def webhook():
@@ -35,6 +35,6 @@ def webhook():
   file_path = file_res["result"]["file_path"]
   file_url = f"https://api.telegram.org/file/bot{TOKEN}/{file_path}"
   '''
-  return str(host_urls)
+  return 'testing'
 if __name__ == "__main__":
-  app.run()
+  app.run(port=os.getenv("PORT", default=5000))
