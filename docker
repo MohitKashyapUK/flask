@@ -1,0 +1,10 @@
+FROM ubuntu:18.04
+
+RUN apt-get update && \
+    apt-get install -y python3 python3-pip git && \
+    git clone https://github.com/telegramdesktop/tdesktop.git && \
+    cd tdesktop && \
+    git checkout v2.7.0 && \
+    pip3 install pyrogram tgcrypto
+
+EXPOSE 80/tcp
