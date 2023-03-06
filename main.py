@@ -2,7 +2,6 @@ from flask import Flask, request
 import requests
 import os
 import json
-import random
 app = Flask(__name__)
 
 token = os.environ["TOKEN"]
@@ -11,17 +10,20 @@ url = f"https://api.telegram.org/bot{token}/sendMessage"
 @app.route("/webhook", methods = ["GET", "POST"])
 def webhook():
   data = request.get_json()
-  print(data)
-  """message = data["message"]["text"]
-  chat_id = data["message"]["chat"]["id"]
   message_id = data["message"]["message_id"]
-  text_list = ['ok','hello!','namaste!','sasriakaal','we are working on this bot!']
-  def getrandomtext():
-    return random.randint(0,4)
-  if message == '/start':
-    requests.post(url,data={"chat_id": chat_id, 'text': text_list[getrandomtext()]})
-  else:"""
-  #requests.post(url,data={"chat_id": chat_id, 'text': 'Hey!'})
+  chat_id = data["message"]["chat"]["id"]
+  message = data["message"].get("text")
+  document = data["message"].get("document")
+  if message:
+    requests.post(url,data={"chat_id":chat_id,"text":"Text!"})
+  elif document:
+    # file_id = data["message"].get("document")["file_id"]
+    requests.post(url,data={"chat_id":chat_id,"text":"Document!"})
+  '''
+  file_res = requests.get(f"https://api.telegram.org/bot{TOKEN}/getFile?file_id={file_id}")
+  file_path = file_res["result"]["file_path"]
+  file_url = f"https://api.telegram.org/file/bot{TOKEN}/{file_path}"
+  '''
   return {'ok':True}
 if __name__ == "__main__":
-  app.run(debug=True)
+  app.run()
