@@ -7,7 +7,8 @@ app = Flask(__name__)
 '''token = os.environ["TOKEN"]
 url = f"https://api.telegram.org/bot{token}/sendMessage"
 #base_url = f'{request.host_url}/bot{token}/sendMessage'
-host_urls = request.host_url'''
+'''
+base_url = 'http://0.0.0.0:6457/bot{token}/sendMessage'
 
 @app.route("/webhook", methods = ["GET", "POST"])
 def webhook():
