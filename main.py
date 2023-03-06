@@ -14,11 +14,17 @@ def webhook():
   chat_id = data["message"]["chat"]["id"]
   message = data["message"].get("text")
   document = data["message"].get("document")
+  photo = data["message"].get("photo")
+  audio = data["message"].get("audio")
+  # file_id = data["message"].get("document")["file_id"]
   if message:
     requests.post(url,data={"chat_id":chat_id,"text":"Text!"})
   elif document:
-    # file_id = data["message"].get("document")["file_id"]
     requests.post(url,data={"chat_id":chat_id,"text":"Document!"})
+  elif photo:
+    requests.post(url,data={"chat_id":chat_id,"text":"Photo!"})
+  elif audio:
+    requests.post(url,data={"chat_id":chat_id,"text":"Audio!"})
   else:
     print(data)
     requests.post(url,data={"chat_id":chat_id,"text":"Other!"})
