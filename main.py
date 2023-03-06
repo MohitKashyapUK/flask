@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 token = os.environ["TOKEN"]
 url = f"https://api.telegram.org/bot{token}/sendMessage"
-base_url = f'http://0.0.0.0:5000/bot{token}/sendMessage'
+base_url = f'http://0.0.0.0:8000/bot{token}/sendMessage'
 
 @app.route("/webhook", methods = ["GET", "POST"])
 def webhook():
@@ -36,4 +36,5 @@ def webhook():
   '''
   return {'ok':True}
 if __name__ == "__main__":
-  app.run(port=5000)
+  port = int(os.environ.get("PORT", 8000))
+  app.run(host='0.0.0.0', port=port)
