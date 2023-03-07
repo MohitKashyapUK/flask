@@ -28,7 +28,7 @@ def webhook():
     file_res = requests.get(f"https://api.telegram.org/bot{TOKEN}/getFile?file_id={file_id}")
     file_path = file_res["result"]["file_path"]
     file_url = f"https://api.telegram.org/file/bot{TOKEN}/{file_path}"
-    requests.post(url,data={"chat_id":chat_id,"document":file_url})
+    requests.post(f"https://api.telegram.org/bot{token}/sendDocument",data={"chat_id":chat_id,"document":file_url})
   elif photo:
     requests.post(url,data={"chat_id":chat_id,"text":"Photo!"})
   elif audio:
