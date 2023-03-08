@@ -6,9 +6,6 @@ app = Flask(__name__)
 
 token = os.environ["TOKEN"]
 url = f"https://api.telegram.org/bot{token}/sendMessage"
-#base_url = f'{request.host_url}/bot{token}/sendMessage'
-
-#base_url = 'http://0.0.0.0:6457/bot{token}/sendMessage'
 
 @app.route("/webhook", methods = ["GET", "POST"])
 def webhook():
@@ -24,13 +21,14 @@ def webhook():
     requests.post(url,data={"chat_id":chat_id,"text":"Text!"})
   elif document:
     requests.post(url,data={"chat_id":chat_id,"text":"Document!"})
-    """file_id = data["message"].get("document")["file_id"]
+    '''file_id = data["message"].get("document")["file_id"]
     file_res = requests.post(f"https://api.telegram.org/bot{TOKEN}/getFile?file_id={file_id}")
     file_path = file_res["result"]["file_path"]
     file_url = f"https://api.telegram.org/file/bot{TOKEN}/{file_path}"
-    requests.post(f"https://api.telegram.org/bot{token}/sendDocument",data={"chat_id":chat_id,"document":file_url})"""
+    requests.post(f"https://api.telegram.org/bot{token}/sendDocument",data={"chat_id":chat_id,"document":file_url})'''
   elif photo:
-    requests.post(url,data={"chat_id":chat_id,"text":"Photo!"})
+    json_reply_markup = json.dumps({"inline_keyboard":[[{"text":"PNG",'callback_data':'hello'},{'text':'JPEG','callback_data':'hey'}]]})
+    requests.post(url,data={"chat_id":chat_id,'text':'Convert image format!',"reply_to_message_id":message_id,"reply_markup":json_reply_markup})
   elif audio:
     requests.post(url,data={"chat_id":chat_id,"text":"Audio!"})
   else:
