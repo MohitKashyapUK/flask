@@ -20,6 +20,34 @@ def run_script():
     # Return the output to the user
     return output
 
+import telegram
+from telegram.ext import Updater, CommandHandler
+
+# Create a function to handle the /start command
+def start(update, context):
+    # Get the chat ID of the user who sent the message
+    chat_id = update.message.chat_id
+    
+    # Send a welcome message
+    context.bot.send_message(chat_id=chat_id, text="Hello, welcome to my bot!")
+    
+# Create an instance of the Updater class with your bot's token
+updater = Updater(token='YOUR_BOT_TOKEN', use_context=True, 
+                  request_kwargs={'proxy_url': 'http://localhost:8081'})
+
+# Create a CommandHandler for the /start command
+start_handler = CommandHandler('start', start)
+
+# Add the start_handler to the Updater's dispatcher
+updater.dispatcher.add_handler(start_handler)
+
+# Start polling for updates
+updater.start_polling()
+
+# Run the bot until you press Ctrl-C
+updater.idle()
+
+
 @app.route("/webhook", methods = ["GET", "POST"])
 def webhook():
   data = request.get_json()
