@@ -32,7 +32,7 @@ def start(update, context):
     context.bot.send_message(chat_id=chat_id, text="Hello, welcome to my bot!")
     
 # Create an instance of the Updater class with your bot's token
-updater = Updater(token='YOUR_BOT_TOKEN', use_context=True, 
+updater = Updater(token=token, use_context=True, 
                   request_kwargs={'proxy_url': 'http://localhost:8081'})
 
 # Create a CommandHandler for the /start command
