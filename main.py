@@ -4,49 +4,10 @@ import os
 import json
 app = Flask(__name__)
 
-Token = os.environ["TOKEN"]
+token = os.environ["TOKEN"]
 #url = f"https://api.telegram.org/bot{token}/sendMessage"
 #url = f'http://0.0.0.0:8081/bot{token}/sendMessage'
-
-import subprocess
-@app.route('/run-script')
-def run_script():
-    # Execute the shell script file
-    result = subprocess.run(['sh', 'my.sh'], stdout=subprocess.PIPE)
-
-    # Get the output from the script
-    output = result.stdout.decode('utf-8')
-
-    # Return the output to the user
-    return output
-
-import telegram
-from telegram.ext import Updater, CommandHandler
-
-# Create a function to handle the /start command
-def start(update, context):
-    # Get the chat ID of the user who sent the message
-    chat_id = update.message.chat_id
-    
-    # Send a welcome message
-    context.bot.send_message(chat_id=chat_id, text="Hello, welcome to my bot!")
-    
-# Create an instance of the Updater class with your bot's token
-updater = Updater(Token, base_url = 'http://0.0.0.0:8081/bot')
-
-# Create a CommandHandler for the /start command
-start_handler = CommandHandler('start', start)
-
-# Add the start_handler to the Updater's dispatcher
-updater.dispatcher.add_handler(start_handler)
-
-# Start polling for updates
-updater.start_polling()
-
-# Run the bot until you press Ctrl-C
-updater.idle()
-
-
+requests.get(f"http://0.0.0.0:8081/bot{token}/setWebhook",params={"url":"https://all-in-one-bot.onrender.com/webhook"})
 @app.route("/webhook", methods = ["GET", "POST"])
 def webhook():
   data = request.get_json()
