@@ -4,7 +4,7 @@ import os
 import json
 app = Flask(__name__)
 
-token = os.environ["TOKEN"]
+Token = os.environ["TOKEN"]
 #url = f"https://api.telegram.org/bot{token}/sendMessage"
 url = f'http://0.0.0.0:8081/bot{token}/sendMessage'
 
@@ -32,7 +32,7 @@ def start(update, context):
     context.bot.send_message(chat_id=chat_id, text="Hello, welcome to my bot!")
     
 # Create an instance of the Updater class with your bot's token
-updater = Updater(token=token, use_context=True, 
+updater = Updater(token=Token, use_context=True, 
                   request_kwargs={'proxy_url': 'http://localhost:8081'})
 
 # Create a CommandHandler for the /start command
