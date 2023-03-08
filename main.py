@@ -5,8 +5,8 @@ import json
 app = Flask(__name__)
 
 token = os.environ["TOKEN"]
-url = f"https://api.telegram.org/bot{token}/sendMessage"
-base_url = f'http://0.0.0.0:8081/bot{token}/sendMessage'
+#url = f"https://api.telegram.org/bot{token}/sendMessage"
+url = f'http://0.0.0.0:8081/bot{token}/sendMessage'
 
 import subprocess
 @app.route('/run-script')
