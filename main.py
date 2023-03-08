@@ -7,6 +7,19 @@ app = Flask(__name__)
 token = os.environ["TOKEN"]
 url = f"https://api.telegram.org/bot{token}/sendMessage"
 
+import subprocess
+
+@app.route('/run-script')
+def run_script():
+    # Execute the shell script file
+    result = subprocess.run(['sh', 'my.sh'], stdout=subprocess.PIPE)
+
+    # Get the output from the script
+    output = result.stdout.decode('utf-8')
+
+    # Return the output to the user
+    return output
+
 @app.route("/webhook", methods = ["GET", "POST"])
 def webhook():
   data = request.get_json()
