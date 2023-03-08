@@ -7,7 +7,11 @@ app = Flask(__name__)
 token = os.environ["TOKEN"]
 #url = f"https://api.telegram.org/bot{token}/sendMessage"
 #url = f'http://0.0.0.0:8081/bot{token}/sendMessage'
-requests.get(f"http://0.0.0.0:8081/bot{token}/setWebhook",params={"url":"https://all-in-one-bot.onrender.com/webhook"})
+
+@app.route("/set")
+def set():
+  requests.get(f"http://localhost:8081/bot{token}/setWebhook",params={"url":"https://all-in-one-bot.onrender.com/webhook"})
+
 @app.route("/webhook", methods = ["GET", "POST"])
 def webhook():
   data = request.get_json()
