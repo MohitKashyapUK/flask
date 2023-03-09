@@ -8,6 +8,8 @@ token = os.environ["TOKEN"]
 #url = f"https://api.telegram.org/bot{token}/sendMessage"
 #url = f'http://0.0.0.0:8081/bot{token}/sendMessage'
 
+subprocess.call(["bash","my.sh"])
+
 @app.route("/set")
 def set():
   res = requests.get(f"http://localhost:8081/bot{token}/setWebhook",data={"url":"https://all-in-one-bot.onrender.com/webhook"})
