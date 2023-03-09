@@ -10,8 +10,8 @@ token = os.environ["TOKEN"]
 
 @app.route("/set")
 def set():
-  res = requests.get(f"http://localhost:8081/bot{token}/setWebhook",params={"url":"https://all-in-one-bot.onrender.com/webhook"})
-  return res.json()
+  res = requests.get(f"http://localhost:8081/bot{token}/setWebhook",data={"url":"https://all-in-one-bot.onrender.com/webhook"})
+  return str(res.content)
 
 @app.route("/webhook", methods = ["GET", "POST"])
 def webhook():
