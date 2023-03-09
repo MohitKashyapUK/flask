@@ -14,7 +14,7 @@ def run():
 
 @app.route("/set")
 def set():
-  res = requests.get(f"http://localhost:8081/bot{token}/setWebhook",data={"url":"https://all-in-one-bot.onrender.com/webhook"})
+  res = requests.get(f"http://localhost:8081/bot{token}/setWebhook",data={"url":"https://web-production-692d.up.railway.app/webhook"})
   return str(res.content)
 
 @app.route("/webhook", methods = ["GET", "POST"])
