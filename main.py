@@ -6,7 +6,7 @@ app = Flask(__name__)
 import subprocess
 token = os.environ["TOKEN"]
 #url = f"https://api.telegram.org/bot{token}/sendMessage"
-#url = f'http://0.0.0.0:8081/bot{token}/sendMessage'
+url = f'http://localhost:8081/bot{token}/sendMessage'
 
 @app.route("/run")
 def run():
