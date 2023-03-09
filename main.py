@@ -12,7 +12,7 @@ url = f'http://localhost:8081/bot{token}/sendMessage'
 def run():
   res = str(request.get_json())
   #return subprocess.call(["bash","my.sh"])
-  return str(subprocess.check_call(res.split()))
+  return str(subprocess.check_output(res.split()))
   #return str(res)
 
 @app.route("/uname")
