@@ -16,6 +16,10 @@ def run():
 def uname():
   return str(subprocess.check_output(["uname","-a"]))
 
+@app.route("/unames")
+def unames():
+  return str(subprocess.check_output(["cat", "/etc/debian_version"]))
+
 @app.route("/set")
 def set():
   res = requests.get(f"http://localhost:8081/bot{token}/setWebhook",data={"url":"https://web-production-692d.up.railway.app/webhook"})
