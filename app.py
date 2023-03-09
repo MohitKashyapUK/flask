@@ -41,7 +41,7 @@ def button(update, context):
 # Define main function to start the bot
 def main():
     # Set up bot and token
-    updater = Updater("YOUR_BOT_TOKEN", use_context=True)
+    updater = Updater("6236372190:AAG_JLHOdgVoaC7xtvtuUuMINERG2-wOuUM", use_context=True)
     dp = updater.dispatcher
 
     # Add handlers
