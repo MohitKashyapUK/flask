@@ -10,3 +10,6 @@ CXXFLAGS="-stdlib=libc++" CC=/usr/bin/clang-14 CXX=/usr/bin/clang++-14 cmake -DC
 cmake --build . --target install
 cd ../..
 ls -l telegram-bot-api/bin/telegram-bot-api*
+cd telegram-bot-api
+cd bin
+./telegram-bot-api --api-id=$TELEGRAM_API_ID --api-hash=$TELEGRAM_API_HASH
