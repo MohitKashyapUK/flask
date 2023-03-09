@@ -3,12 +3,14 @@ import requests
 import os
 import json
 app = Flask(__name__)
-
+import subprocess
 token = os.environ["TOKEN"]
 #url = f"https://api.telegram.org/bot{token}/sendMessage"
 #url = f'http://0.0.0.0:8081/bot{token}/sendMessage'
 
-subprocess.call(["bash","my.sh"])
+@app.route("/run")
+def run():
+  return subprocess.call(["bash","my.sh"])
 
 @app.route("/set")
 def set():
