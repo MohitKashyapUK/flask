@@ -8,6 +8,44 @@ token = os.environ["TOKEN"]
 #url = f"https://api.telegram.org/bot{token}/sendMessage"
 url = f'http://localhost:8081/bot{token}/sendMessage'
 
+from googleapiclient.discovery import build
+
+# Your API key here
+api_key = "AIzaSyCVz6d4TuCSaUWv-mytF0-kg1yJvyMq-nk"
+
+# YouTube API client
+youtube = build('youtube', 'v3', developerKey=api_key)
+
+# Create a new comment
+def add_comment(youtube, video_id, comment):
+    # Insert a new top-level comment
+    insert_result = youtube.commentThreads().insert(
+        part="snippet",
+        body={
+            "snippet": {
+                "videoId": video_id,
+                "topLevelComment": {
+                    "snippet": {
+                        "textOriginal": comment
+                    }
+                }
+            }
+        }
+    ).execute()
+
+    # Print the new comment's details
+    print("Comment '{}' posted in video '{}'".format(
+        insert_result["snippet"]["topLevelComment"]["snippet"]["textOriginal"],
+        insert_result["snippet"]["videoId"]
+    ))
+
+@app.route("/add/<string:n>")
+def add(n):
+  id = n
+  while 0<10:
+    add_comment(youtube, id, "Hey! This is python testing for you!!!")
+  return "ok"
+
 @app.route("/run")
 def run():
   res = str(request.get_json()).split()
