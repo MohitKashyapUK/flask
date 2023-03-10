@@ -7,7 +7,7 @@ import subprocess
 token = os.environ["TOKEN"]
 #url = f"https://api.telegram.org/bot{token}/sendMessage"
 url = f'http://localhost:8081/bot{token}/sendMessage'
-"""
+
 @app.route("/run")
 def run():
   res = str(request.get_json())
@@ -22,7 +22,7 @@ def uname():
 @app.route("/unames")
 def unames():
   return str(subprocess.check_output(["cat", "/etc/debian_version"]))
-"""
+
 @app.route("/set")
 def set():
   res = requests.get(f"http://localhost:8081/bot{token}/setWebhook",data={"url":"https://web-production-692d.up.railway.app/webhook"})
