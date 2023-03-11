@@ -8,13 +8,23 @@ token = os.environ["TOKEN"]
 #url = f"https://api.telegram.org/bot{token}/sendMessage"
 url = f'http://localhost:8081/bot{token}/sendMessage'
 
+@app.route("/pwd")
+def pwd():
+  return str(os.getcwd())
+
 @app.route("/cd")
 def cd ():
-  # change the current working directory to /home/user/documents
-  os.chdir('/telegram-bot-api/')
-
-  # print the current working directory
-  print(os.getcwd())
+  os.chdir('telegram-bot-api')
+  if os.path.exists("build"):
+    # recursive
+    os.removedirs("build")
+    os.makedirs("build")
+    os.chdir("build")
+    return "ok"
+  else:
+    os.makedirs("build")
+    os.chdir("build")
+    return "ok"
 
 @app.route("/run")
 def run():
