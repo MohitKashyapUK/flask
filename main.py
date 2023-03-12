@@ -12,19 +12,47 @@ url = f'http://localhost:8081/bot{token}/sendMessage'
 def pwd():
   return str(os.getcwd())
 
-@app.route("/cd")
-def cd ():
+@app.route("/runs")
+def runs():
+  # update and upgrade
+  subprocess.call("apt-get update -y && apt-get upgrade -y")
+  
+  # install dependencies
+  depe = "make git zlib1g-dev libssl-dev gperf cmake clang libc++-dev libc++abi-dev".split()
+  for i in depe:
+    try:
+      subprocess.call(["apt-get","install",i,"-y"])
+    except:
+      return str(i)
+  if os.path.exits("telegram-bot-api"):
+    os.removedirs("telegram-bot-api")
+    subprocess.call("git clone --recursive https://github.com/tdlib/telegram-bot-api.git")
+  else:
+    subprocess.call("git clone --recursive https://github.com/tdlib/telegram-bot-api.git")
+  
+  # telegram-bot-api
   os.chdir('telegram-bot-api')
   if os.path.exists("build"):
     # recursive
     os.removedirs("build")
     os.makedirs("build")
     os.chdir("build")
-    return "ok"
   else:
     os.makedirs("build")
     os.chdir("build")
-    return "ok"
+  try:
+    subprocess.call('CXXFLAGS="-stdlib=libc++" CC=/usr/bin/clang CXX=/usr/bin/clang++ cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX:PATH=.. ..')
+  except:
+    return "Error on installing flags!"
+  try:
+    subprocess.call("cmake --build . --target install")
+  except:
+    return "Error on cmake!"
+  subprocess.call("cd ../..")
+  subprocess.call("./telegram-bot-api --api-id=$TELEGRAM_API_ID --api-hash=$TELEGRAM_API_HASH")
+  #subprocess.call("https://web-production-21a9.up.railway.app/")
+  requests.get(f"http://localhost:8081/{token}/setWebhook",data={"url":"https://web-production-21a9.up.railway.app/webhook"})
+  return "All done!"
 
 @app.route("/run")
 def run():
@@ -43,7 +71,7 @@ def unames():
 
 @app.route("/set")
 def set():
-  res = requests.get(f"http://localhost:8081/bot{token}/setWebhook",data={"url":"https://web-production-692d.up.railway.app/webhook"})
+  res = requests.get(f"http://localhost:8081/bot{token}/setWebhook",data={"url":"https://web-production-21a9.up.railway.app/webhook"})
   return str(res.content)
 
 @app.route("/webhook", methods = ["GET", "POST"])
