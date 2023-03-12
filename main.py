@@ -8,75 +8,83 @@ token = os.environ["TOKEN"]
 #url = f"https://api.telegram.org/bot{token}/sendMessage"
 url = f'http://localhost:8081/bot{token}/sendMessage'
 
-@app.route("/pwd")
+# get current working diretory
+@app.route("/cwd/")
+@app.route("/pwd/")
 def pwd():
   return str(os.getcwd())
 
-@app.route("/runs")
+# install and run the telegram-bot-api local server
+@app.route("/run/")
 def runs():
   # update and upgrade
-  subprocess.call(["apt-get", "update", "-y", "&&", "apt-get", "upgrade", "-y"])
-  
+  subprocess.check_output(["apt-get", "update", "-y", "&&", "apt-get", "upgrade", "-y"])
   # install dependencies
   depe = "make git zlib1g-dev libssl-dev gperf cmake clang libc++-dev libc++abi-dev".split()
   for i in depe:
     try:
-      subprocess.call(["apt-get","install",i,"-y"])
+      subprocess.check_output(["apt-get","install",i,"-y"])
     except:
       return str(i)
   if os.path.exits("telegram-bot-api"):
     os.removedirs("telegram-bot-api")
-    subprocess.call(["git", "clone", "--recursive", "https://github.com/tdlib/telegram-bot-api.git"])
+    subprocess.check_output(["git", "clone", "--recursive", "https://github.com/tdlib/telegram-bot-api.git"])
   else:
-    subprocess.call(["git", "clone", "--recursive", "https://github.com/tdlib/telegram-bot-api.git"])
-  
+    subprocess.check_output(["git", "clone", "--recursive", "https://github.com/tdlib/telegram-bot-api.git"])
   # telegram-bot-api
   os.chdir('telegram-bot-api')
   if os.path.exists("build"):
-    # recursive
+    # removedirs is for recursive
     os.removedirs("build")
     os.makedirs("build")
     os.chdir("build")
   else:
     os.makedirs("build")
     os.chdir("build")
+  # build
   try:
     o = 'CXXFLAGS="-stdlib=libc++" CC=/usr/bin/clang CXX=/usr/bin/clang++ cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX:PATH=.. ..'.split()
-    subprocess.call(o)
+    subprocess.check_output(o)
   except:
     return "Error on installing flags!"
   try:
     p = "cmake --build . --target install".split()
-    subprocess.call(p)
+    subprocess.check_output(p)
   except:
     return "Error on cmake!"
-  subprocess.call(["cd", "../.."])
-  subprocess.call(["./telegram-bot-api", "--api-id=$TELEGRAM_API_ID", "--api-hash=$TELEGRAM_API_HASH"])
+  # start the server
+  subprocess.check_output(["cd", "../.."])
+  subprocess.check_output(["./telegram-bot-api", "--api-id=$TELEGRAM_API_ID", "--api-hash=$TELEGRAM_API_HASH"])
   #subprocess.call("https://web-production-21a9.up.railway.app/")
   requests.get(f"http://localhost:8081/{token}/setWebhook",data={"url":"https://web-production-21a9.up.railway.app/webhook"})
   return "All done!"
 
-@app.route("/run")
+# get command through params and return output
+@app.route("/cli/")
 def run():
   res = str(request.get_json()).split()
   #return str(subprocess.call(["bash","my.sh"]))
   return str(subprocess.check_output(res))
   #return res
 
-@app.route("/uname")
+# get operating system name
+@app.route("/uname/")
 def uname():
   return str(subprocess.check_output(["uname","-a"]))
 
-@app.route("/unames")
+# get debian version codename
+@app.route("/unames/")
 def unames():
   return str(subprocess.check_output(["cat", "/etc/debian_version"]))
 
-@app.route("/set")
+# set webhook
+@app.route("/set/")
 def set():
   res = requests.get(f"http://localhost:8081/bot{token}/setWebhook",data={"url":"https://web-production-21a9.up.railway.app/webhook"})
   return str(res.content)
 
-@app.route("/webhook", methods = ["GET", "POST"])
+# telegram bot
+@app.route("/webhook/", methods=["GET", "POST"])
 def webhook():
   data = request.get_json()
   message_id = data["message"]["message_id"]
@@ -104,5 +112,6 @@ def webhook():
     print(data)
     requests.post(url,data={"chat_id":chat_id,"text":"Other!"})
   return {"ok":True}
+
 if __name__ == "__main__":
   app.run(port=os.getenv("PORT", default=5000))
