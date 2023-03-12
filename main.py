@@ -15,7 +15,7 @@ def pwd():
 @app.route("/runs")
 def runs():
   # update and upgrade
-  subprocess.call("apt-get update -y && apt-get upgrade -y")
+  subprocess.call(["apt-get", "update", "-y", "&&", "apt-get", "upgrade", "-y"])
   
   # install dependencies
   depe = "make git zlib1g-dev libssl-dev gperf cmake clang libc++-dev libc++abi-dev".split()
@@ -26,9 +26,9 @@ def runs():
       return str(i)
   if os.path.exits("telegram-bot-api"):
     os.removedirs("telegram-bot-api")
-    subprocess.call("git clone --recursive https://github.com/tdlib/telegram-bot-api.git")
+    subprocess.call(["git", "clone", "--recursive", "https://github.com/tdlib/telegram-bot-api.git"])
   else:
-    subprocess.call("git clone --recursive https://github.com/tdlib/telegram-bot-api.git")
+    subprocess.call(["git", "clone", "--recursive", "https://github.com/tdlib/telegram-bot-api.git"])
   
   # telegram-bot-api
   os.chdir('telegram-bot-api')
@@ -41,15 +41,17 @@ def runs():
     os.makedirs("build")
     os.chdir("build")
   try:
-    subprocess.call('CXXFLAGS="-stdlib=libc++" CC=/usr/bin/clang CXX=/usr/bin/clang++ cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX:PATH=.. ..')
+    o = 'CXXFLAGS="-stdlib=libc++" CC=/usr/bin/clang CXX=/usr/bin/clang++ cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX:PATH=.. ..'.split()
+    subprocess.call(o)
   except:
     return "Error on installing flags!"
   try:
-    subprocess.call("cmake --build . --target install")
+    p = "cmake --build . --target install".split()
+    subprocess.call(p)
   except:
     return "Error on cmake!"
-  subprocess.call("cd ../..")
-  subprocess.call("./telegram-bot-api --api-id=$TELEGRAM_API_ID --api-hash=$TELEGRAM_API_HASH")
+  subprocess.call(["cd", "../.."])
+  subprocess.call(["./telegram-bot-api", "--api-id=$TELEGRAM_API_ID", "--api-hash=$TELEGRAM_API_HASH"])
   #subprocess.call("https://web-production-21a9.up.railway.app/")
   requests.get(f"http://localhost:8081/{token}/setWebhook",data={"url":"https://web-production-21a9.up.railway.app/webhook"})
   return "All done!"
